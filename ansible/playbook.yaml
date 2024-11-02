@@ -1,0 +1,61 @@
+- name: configure web server
+  hosts: all
+  become: true
+  tasks:
+    - name: update cache
+      dnf:
+        update_cache: yes
+
+    - name: install packages
+      dnf:
+        name: "{{ item }}"
+        state: present
+      loop: 
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+        - docker
+        - git
+
+    - name: add docker repo
+      command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+    
+    - name:  add docker gpg key
+      rpm_key:
+        key: https://download.docker.com/linux/centos/gpg
+        state: present
+
+    - name: update cache
+      dnf:
+        update_cache: yes
+    
+    - name: start and enable docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: create docker group
+      group:
+        name: docker
+        state: present
+    
+    - name: add ec2-user to docker group
+      user:
+        name: ec2-user
+        groups: docker
+        append: yes
+    
+    - name: make new directory to copy the app 
+      file:
+        path: /opt/app
+        state: directory
+        mode: 0755
+
+    - name: copy the app to the new directory
+      copy:
+        src: /home/ec2-user/app 
+        dest: /opt/app
+
+
