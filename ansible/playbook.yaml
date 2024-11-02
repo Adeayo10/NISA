@@ -49,13 +49,27 @@
     
     - name: make new directory to copy the app 
       file:
-        path: /opt/app
+        path: /home/ec2-user/app
         state: directory
         mode: 0755
 
-    - name: copy the app to the new directory
-      copy:
-        src: /home/ec2-user/app 
-        dest: /opt/app
+    - name: clone the app
+      git:
+        repo: https://github.com/Adeayo10/NISA.git
+        dest: /home/ec2-user/app
 
+    # - name: stop existing docker container on the port 89
+    #   shell: |
+    #     docker ps --filter "publish=89" -q | xargs -r docker stop
+    #     docker ps --filter "publish=89" -q | xargs -r docker rm
 
+    - name: stop existing docker container on the port 80
+      shell: |
+        docker ps --filter "publish=80" -q | xargs -r docker stop
+        docker ps --filter "publish=80" -q | xargs -r docker rm
+
+    - name: build the docker image
+      command: docker build -t nodeapp /home/ec2-user/app/node
+
+    - name: run the docker container
+      command: docker run -d --name nodeapp -p 80:3000 nodeapp
