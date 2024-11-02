@@ -58,12 +58,7 @@
         repo: https://github.com/Adeayo10/NISA.git
         dest: /home/ec2-user/app
 
-    # - name: stop existing docker container on the port 89
-    #   shell: |
-    #     docker ps --filter "publish=89" -q | xargs -r docker stop
-    #     docker ps --filter "publish=89" -q | xargs -r docker rm
-
-    - name: stop existing docker container on the port 80
+    - name: stop exisitng docker container
       shell: |
         docker ps --filter "publish=80" -q | xargs -r docker stop
         docker ps --filter "publish=80" -q | xargs -r docker rm
