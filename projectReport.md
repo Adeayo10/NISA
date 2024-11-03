@@ -661,6 +661,8 @@ The challenges faced during the CI/CD pipeline integration phase were:
 
 ## Diagrams
 ![CI/CD Pipeline Diagram](./terraform/images/CICD.webp)
+image source: https://skundunotes.com/2023/03/07/ci-cd-with-terraform-and-github-actions-to-deploy-to-aws/
+image credit: SOURAV KUNDU
 
 
 # 6. Alternatives Considered
