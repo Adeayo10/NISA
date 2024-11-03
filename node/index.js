@@ -15,11 +15,16 @@ server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-function test() {
-  checkPrime(5)? console.log('prime') : "not prime"; 
-  console.log('test');
+
+function checkPrime(num) {
+  if (num <= 1) {
+    return false;
+  }
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return true; 
 }
 
-function test2() {
-  console.log('test2');
-}
