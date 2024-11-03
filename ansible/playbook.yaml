@@ -1,3 +1,4 @@
+# Part 2: Congifuration management - Setting up Docker
 - name: configure web server
   hosts: all
   become: true
@@ -36,6 +37,7 @@
         state: started
         enabled: yes
 
+# Part 3: DOCKER Container Deployment
     - name: create docker group
       group:
         name: docker
