@@ -37,3 +37,8 @@ function getPrimes(n) {
   }
   return primes;
 }
+
+function displayPrimes(n) {
+  const primes = getPrimes(n);
+  console.log(primes);
+}
