@@ -1,3 +1,4 @@
+const { checkPrime } = require('crypto');
 const http = require('http');
 
 const hostname = '0.0.0.0';
@@ -15,5 +16,6 @@ server.listen(port, hostname, () => {
 });
 
 function test() {
+  checkPrime(5)? console.log('prime') : "not prime"; 
   console.log('test');
 }
