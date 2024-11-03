@@ -40,11 +40,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            docker load -i /home/${{ secrets.SSH_USERNAME }}/getting-started-app.tar
-            docker stop app || true
-            docker rm app || true
-            # docker run -v /opt/getting-started-app:/app -d --name app -p 80:3000 getting-started-app:latest
-            docker run -d --name app -p 80:3000 getting-started-app:latest
+            docker pull ${{ vars.DOCKERHUB_USERNAME }}/doceerized:latest
+            docker stop $(docker ps -a -q)
+            docker rm $(docker ps -a -q)
+            docker run -d -p 80:80 ${{ vars.DOCKERHUB_USERNAME }}/doceerized:latest
 
 
 
