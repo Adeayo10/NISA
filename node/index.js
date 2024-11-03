@@ -19,3 +19,7 @@ function test() {
   checkPrime(5)? console.log('prime') : "not prime"; 
   console.log('test');
 }
+
+function test2() {
+  console.log('test2');
+}
