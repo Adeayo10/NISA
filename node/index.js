@@ -28,3 +28,12 @@ function checkPrime(num) {
   return true; 
 }
 
+function getPrimes(n) {
+  const primes = [];
+  for (let i = 2; i <= n; i++) {
+    if (checkPrime(i)) {
+      primes.push(i);
+    }
+  }
+  return primes;
+}

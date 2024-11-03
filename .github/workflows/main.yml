@@ -32,14 +32,19 @@ jobs:
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/doceerized:latest
 
-      - name: SSH to AWS EC2
-        uses: webfactory/ssh-agent@v0.5.3
+      - name: SSH to Server and Deploy
+        uses: appleboy/ssh-action@master
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy to AWS EC2
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@${{ secrets.AWS_SSH_HOST }} 'docker pull ${{ vars.DOCKERHUB_USERNAME }}/doceerized:latest && docker run -d -p 80:80 ${{ vars.DOCKERHUB_USERNAME }}/doceerized:latest'
+          host: ${{ secrets.AWS_SSH_HOST }}
+          username: ${{secrets.SSH_USERNAME}}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            docker load -i /home/${{ secrets.SSH_USERNAME }}/getting-started-app.tar
+            docker stop app || true
+            docker rm app || true
+            # docker run -v /opt/getting-started-app:/app -d --name app -p 80:3000 getting-started-app:latest
+            docker run -d --name app -p 80:3000 getting-started-app:latest
 
 
 
