@@ -8,7 +8,7 @@ const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.statusMessage = 'Hello World!';
-  res.end('Hello World, this is a deployment assignment\n');
+  res.end('Hello Binsy\n');
 });
 
 server.listen(port, hostname, () => {
