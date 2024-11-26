@@ -9,13 +9,6 @@ const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'text/plain');
   res.statusMessage = 'Hello World!';
   res.end('Networking Assessment \n');
-const assessmentDetails = {
-  assessmentName: 'Networking Assessment',
-  lecturerName: 'Kingsley Ibomo',
-  groupMembers: ['Adeayo', 'Javeed', 'Gayatari', 'Nibu']
-};
-
-res.end(`Assessment Name: ${assessmentDetails.assessmentName}\nLecturer Name: ${assessmentDetails.lecturerName}\nGroup Members: ${assessmentDetails.groupMembers.join(', ')}\n`);
 });
 
 server.listen(port, hostname, () => {
